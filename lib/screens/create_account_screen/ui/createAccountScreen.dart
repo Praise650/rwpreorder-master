@@ -2,10 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:rwk20/components/Input_field.dart';
 import 'package:rwk20/components/logo.dart';
 import 'package:rwk20/components/materialButton.dart';
 import 'package:rwk20/screens/input_phone_number_screen/ui/input_phone_number.dart';
+import 'package:rwk20/ui/base_widget.dart';
 import 'package:rwk20/ui/views/home_view.dart';
+
+import '../../../app.dart';
 
 // ignore: must_be_immutable
 class CreateAccountPage extends StatefulWidget {
@@ -51,166 +55,178 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   // Boolean variable for CircularProgressIndicator.
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Color(0xff080050),
-      /* Frosted glass to host login field screen starts here */
-      body: SafeArea(
-        child: ListView(
-          children: [
-            /* RCCG logo as background image of login screen */
-            ImageWidget(),
-            /* RCCG logo as background image of login screen end here */
-
-            Container(
-              height: MediaQuery.of(context).size.height * 2 / 3,
+    return BaseWidget(
+      builder: (context, sizingInformation) {
+        return Scaffold(
+          resizeToAvoidBottomInset: true,
+          backgroundColor: App.primaryColor,
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: Text('RW \'20 Preorder'),
+          ),
+          body: SafeArea(
+            child: Container(
+              height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(100),
-                  bottomRight: Radius.circular(100),
-                ),
+                    // topLeft: Radius.circular(100),
+                    // bottomRight: Radius.circular(100),
+                    ),
                 color: Colors.white,
                 // .withOpacity(.6),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'Create Account',
-                            style: Theme.of(context).textTheme.headline4,
-                          ),
-                          InputField(
-                            label: "First Name",
-                            controller: nameController,
-                          ),
-                          InputField(
-                            label: "Last Name",
-                            controller: lastNameController,
-                          ),
-                          InputField(
-                            label: "Email",
-                            controller: emailController,
-                          ),
-                          InputField(
-                            label: "Set",
-                            controller: setYearController,
-                          ),
-                          TextFormField(
-                            readOnly: true,
-                            decoration: InputDecoration(
-                              enabled: false,
-                              hintText: '${widget.displayPhoneNumber}',
-                              hintStyle: TextStyle(
-                                fontWeight: FontWeight.w700,
-                              ),
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Please fill in the appropriate data',
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                      InputField(
+                        label: "First Name",
+                        controller: nameController,
+                      ),
+                      InputField(
+                        label: "Last Name",
+                        controller: lastNameController,
+                      ),
+                      InputField(
+                        label: "Email",
+                        controller: emailController,
+                      ),
+                      InputField(
+                        label: "Set",
+                        controller: setYearController,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          padding: EdgeInsets.only(left:10.0),
+                          alignment: Alignment.centerLeft,
+                          height: 50,
+                          width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              shape: BoxShape.rectangle,
+                                border: Border.all(
+                              color: Colors.grey,
+                              width: 1,
+                            )),
+                            child: Text('${widget.displayPhoneNumber}')),
+                      ),
+    
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0,),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 20.0),
+                              child: Text('Gender:'),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                            Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 20.0),
-                                  child: Text('Gender:'),
+                                Container(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('Male'),
+                                      Radio(
+                                          activeColor: Colors.red,
+                                          value: 'Male',
+                                          groupValue: groupValue,
+                                          onChanged: (String value) {
+                                            if (value == 'Male') {
+                                              setState(() {
+                                                groupValue = value;
+                                              });
+                                            }
+                                          }),
+                                    ],
+                                  ),
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Container(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Male'),
-                                          Radio(
-                                              activeColor: Colors.red,
-                                              value: 'Male',
-                                              groupValue: groupValue,
-                                              onChanged: (String value) {
-                                                if (value == 'Male') {
-                                                  setState(() {
-                                                    groupValue = value;
-                                                  });
-                                                }
-                                              }),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Female'),
-                                          Radio(
-                                              activeColor: Colors.red,
-                                              value: 'Female',
-                                              groupValue: groupValue,
-                                              onChanged: (String value) {
-                                                if (value == 'Female') {
-                                                  setState(() {
-                                                    groupValue = value;
-                                                  });
-                                                }
-                                              }),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                Container(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('Female'),
+                                      Radio(
+                                          activeColor: Colors.red,
+                                          value: 'Female',
+                                          groupValue: groupValue,
+                                          onChanged: (String value) {
+                                            if (value == 'Female') {
+                                              setState(() {
+                                                groupValue = value;
+                                              });
+                                            }
+                                          }),
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
-                          ),
-                          InputField(
-                            label: "Department",
-                            controller: departmentController,
-                          ),
-                          InputField(
-                            label: "Home Address",
-                            controller: homeAddressController,
-                          ),
-                          InputField(
-                            label: "School Address",
-                            controller: schoolAddressController,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 20,
-                              left: 10.0,
-                              right: 10.0,
-                            ),
-                            child: Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 1 / 14,
-                                width:
-                                    MediaQuery.of(context).size.width * 3 / 4,
-                                child: materialButton(
-                                  text: 'Create Account',
+                          ],
+                        ),
+                      ),
+                      InputField(
+                        inputType: TextInputType.text,
+                        label: "Department",
+                        controller: departmentController,
+                      ),
+                      InputField(
+                        label: "Home Address",
+                        controller: homeAddressController,
+                      ),
+                      InputField(
+                        label: "School Address",
+                        controller: schoolAddressController,
+                      ),
+                      // Container(
+                      //     height:
+                      //         MediaQuery.of(context).size.height * 1 / 14,
+                      //     width:
+                      //         MediaQuery.of(context).size.width * 3 / 4,
+                      //     child: materialButton(
+                      //       text: 'Create Account',
+                      //       onPressed: () async {
+    
+                      //     )),
+                      // submit button with padding and firebase auth feature and validation
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: ElevatedButton(
                                   onPressed: () async {
                                     List list = [];
                                     list.add(
                                       {
                                         nameController.text.toString(),
-                                        lastNameController.text.toString(),
+                                        lastNameController.text
+                                            .toString(),
                                         emailController.text.toString(),
                                         widget.displayPhoneNumber
                                             .trim()
                                             .toString(),
                                         groupValue,
-                                        departmentController.text.toString(),
+                                        departmentController.text
+                                            .toString(),
                                         setYearController.text.toString(),
-                                        schoolAddressController.text.toString(),
-                                        homeAddressController.text.toString(),
+                                        schoolAddressController.text
+                                            .toString(),
+                                        homeAddressController.text
+                                            .toString(),
                                       },
                                     );
                                     print(list);
@@ -223,25 +239,27 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                                   thankYou: thanks,
                                                 )));
                                   },
-                                )),
-                          ),
-                          // Visibility(
-                          //     visible: visible,
-                          //     child: Container(
-                          //         margin: EdgeInsets.only(bottom: 30),
-                          //         child: CircularProgressIndicator())),
-                        ],
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Text(
+                                      "Create Account",
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                  )),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),
             ),
-          ],
-        ),
-      ),
-      /* Frosted glass to host login field screen end here */
-      // This trailing comma makes auto-formatting nicer for build methods.
+          ),
+          /* Frosted glass to host login field screen end here */
+          // This trailing comma makes auto-formatting nicer for build methods.
+        );
+      }
     );
   }
 

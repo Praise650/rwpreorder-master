@@ -31,7 +31,8 @@ class _MyAppState extends State<MyApp> {
           if (snapshot.hasError) {
             return MaterialApp(
                 debugShowCheckedModeBanner: false,
-                home: Scaffold(
+                home: 
+                Scaffold(
                   body: Container(
                     child: Center(
                       child: Text(
@@ -74,3 +75,19 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
+// class MyApp2 extends StatelessWidget {
+//   const MyApp2({ Key key }) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//               // builder: DevicePreview.appBuilder,
+//               title: 'Redemption Week Preorder',
+//               debugShowCheckedModeBanner: false,
+//               theme: ThemeData(
+//                 primarySwatch: Colors.orange,
+//               ),
+//               home: InputPhoneNumber(),
+//             );
+//   }
+// }
