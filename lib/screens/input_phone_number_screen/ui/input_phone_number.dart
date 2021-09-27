@@ -108,7 +108,7 @@ class _InputPhoneNumberState extends State<InputPhoneNumber> {
                           Expanded(
                             child: ElevatedButton(
                                 onPressed: () async {
-                                  // Navigator.push(context, MaterialPageRoute(builder:(context)=>CreateAccountPage()));
+                                  Navigator.push(context, MaterialPageRoute(builder:(context)=>CreateAccountPage()));
                                   print(
                                       'Checking phone number for iso code \n ${phoneNumberController.text.toString()}');
                                   authPhoneNumber(
