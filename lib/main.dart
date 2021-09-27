@@ -75,19 +75,3 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
-// class MyApp2 extends StatelessWidget {
-//   const MyApp2({ Key key }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//               // builder: DevicePreview.appBuilder,
-//               title: 'Redemption Week Preorder',
-//               debugShowCheckedModeBanner: false,
-//               theme: ThemeData(
-//                 primarySwatch: Colors.orange,
-//               ),
-//               home: InputPhoneNumber(),
-//             );
-//   }
-// }
