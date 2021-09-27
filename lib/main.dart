@@ -31,8 +31,7 @@ class _MyAppState extends State<MyApp> {
           if (snapshot.hasError) {
             return MaterialApp(
                 debugShowCheckedModeBanner: false,
-                home: 
-                Scaffold(
+                home: Scaffold(
                   body: Container(
                     child: Center(
                       child: Text(
